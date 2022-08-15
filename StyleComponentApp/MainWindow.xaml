@@ -4,105 +4,58 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StyleComponentApp"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:controls="clr-namespace:StyleComponentApp.UI.Controls"
         mc:Ignorable="d"
-        ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="Microsoft authentication" Height="450" Width="400">
-    <Window.Resources>
-        <Style x:Key="BlueBtnStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="Snow"/>
-            <Setter Property="FontWeight" Value="DemiBold"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Width" Value="150"/>
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="BorderThickness" Value="0.4"/>
-            <Setter Property="BorderBrush" Value="Gray"/>
-            
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                CornerRadius="6" 
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}">
-                            <ContentPresenter Content="{TemplateBinding Content}"
-                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                            Margin="{TemplateBinding Padding}"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-
-            <Style.Triggers>
-                <EventTrigger RoutedEvent="MouseEnter">
-                    <BeginStoryboard>
-                        <Storyboard Storyboard.TargetProperty="Background.Color">
-                            <ColorAnimation
-                                From="Black"
-                                To="#FFC107"
-                                Duration="0:0:0.5"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-                <EventTrigger RoutedEvent="MouseEnter">
-                    <BeginStoryboard>
-                        <Storyboard Storyboard.TargetProperty="Foreground.Color">
-                            <ColorAnimation
-                                From="Snow"
-                                To="Black"
-                                Duration="0:0:0.3"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-                <EventTrigger RoutedEvent="MouseLeave">
-                    <BeginStoryboard>
-                        <Storyboard Storyboard.TargetProperty="Background.Color">
-                            <ColorAnimation
-                                From="#FFC107"
-                                To="Black"
-                                Duration="0:0:0.2"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-                <EventTrigger RoutedEvent="MouseLeave">
-                    <BeginStoryboard>
-                        <Storyboard Storyboard.TargetProperty="Foreground.Color">
-                            <ColorAnimation
-                                From="Black"
-                                To="Snow"
-                                Duration="0:0:0.1"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
+        Loaded="Window_Loaded"
+        Title="Najotgramm" Height="400" Width="600" Background="#0E1621">
     <Grid>
-       
-        <TabControl>
-            <TabItem Header="Birinchi page">
-                <Grid>
-                    <Grid Background="Black">
-                        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image Source="Resources/Images/123123.png" Width="50" Height="50" Margin="0 0 10 0"/>
-                            <StackPanel>
-                                <TextBlock Foreground="Snow"
-                           FontSize="25" FontWeight="DemiBold" 
-                           Text=".NET Foundation"/>
-                                <TextBlock Text="Powered by Microsoft" 
-                       Foreground="Snow" HorizontalAlignment="Left"/>
-                            </StackPanel>
-                        </DockPanel>
-                    </Grid>
-                    <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" Margin="20" HorizontalAlignment="Center">
-                        <Button x:Name="SignInBtn" Click="SignInBtn_Click" Content="Sign In" Margin="0 0 25 0" Style="{StaticResource BlueBtnStyle}"/>
-                        <Button Content="Sign Up" Style="{StaticResource BlueBtnStyle}"/>
-                    </StackPanel>
-                </Grid>
-            </TabItem>
-                <TabItem Header="ikkiinchi page"/>
-        </TabControl>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="*" MinWidth="250" MaxWidth="400"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Background="#0E1621">
+
+        </Grid>
+
+        <Grid Grid.Column="1" Background="#17212B">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <!--Search-->
+            <Grid Grid.Row="0">
+                <TextBox Name="SearchTxt" TextChanged="SearchTxt_TextChanged" Margin="8" Background="#242F3D"
+                         md:TextFieldAssist.TextFieldCornerRadius="3" md:HintAssist.Hint="Search" BorderThickness="0"
+                         Foreground="Snow" Padding="8" md:TextFieldAssist.UnderlineBrush="Transparent"/>
+            </Grid>
+
+            <!--Privates-->
+            <Grid Grid.Row="1">
+                <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <ItemsControl Name="UsersList">
+                        <controls:PrivateChat/>
+                        <controls:PrivateChat/>
+                        <controls:PrivateChat/>
+                        <controls:PrivateChat/>
+                        <controls:PrivateChat/>
+                        <controls:PrivateChat/>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+            
+        </Grid>
+        <GridSplitter Grid.Column="1" Width="3"/>
+        
+        <Grid Grid.Column="2" Background="#0E1621">
+            <Border Background="#1E2C3A" Width="220" Height="30" CornerRadius="15">
+                <TextBlock Text="Select a chat to start messaging" Foreground="Snow"
+                           FontWeight="DemiBold" Margin="2" HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+            </Border>
+        </Grid>
     </Grid>
 </Window>
